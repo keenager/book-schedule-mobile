@@ -4,6 +4,7 @@ import { scheduleReducer } from "../../utils/reducer";
 import { initialState } from "../../models/scheduleModels";
 import { DataType } from "../../types/scheduleTypes";
 import ScheduleForm from "../../components/form/ScheduleForm";
+import FormInputList from "../../components/form/InputGroup";
 
 export default function CreateScheduleScreen() {
   const [{ bookList, plan, scheduleList }, dispatch] = useReducer(
@@ -12,6 +13,8 @@ export default function CreateScheduleScreen() {
   );
   const { title, totalPage, dailyPage } = plan;
   const isValidPlan = title.length > 0 && totalPage > 0 && dailyPage > 0;
+  console.log("plan", plan);
+  console.log("scheduleList", scheduleList);
 
   // useEffect(() => {
   //   const savedData = localStorage.getItem("bookSchedule");

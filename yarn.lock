@@ -2929,6 +2929,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/datetimepicker@npm:7.6.1":
+  version: 7.6.1
+  resolution: "@react-native-community/datetimepicker@npm:7.6.1"
+  dependencies:
+    invariant: "npm:^2.2.4"
+  checksum: 7cdd704f4e6e413c279273c022d4954ebfdb76377d33899eb1be71870374a55e522a136f20f929802c20b0f5b67a4b930f86794ceddf29fab406e4f8f10f4974
+  languageName: node
+  linkType: hard
+
 "@react-native/assets-registry@npm:0.73.1, @react-native/assets-registry@npm:~0.73.1":
   version: 0.73.1
   resolution: "@react-native/assets-registry@npm:0.73.1"
@@ -6794,6 +6803,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.23.3"
     "@expo/metro-runtime": "npm:3.1.1"
+    "@react-native-community/datetimepicker": "npm:7.6.1"
     "@react-navigation/native": "npm:^6.0.2"
     "@tamagui/config": "npm:^1.89.20"
     "@tamagui/metro-plugin": "npm:^1.89.20"

@@ -27,7 +27,7 @@ export type ActionType =
   | {
       type: "create";
       formDataObj: {
-        [k: string]: FormDataEntryValue;
+        [k: string]: string | number;
       };
     }
   | {

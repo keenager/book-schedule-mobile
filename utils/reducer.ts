@@ -1,5 +1,6 @@
 import { blankPlan, initialState } from "../models/scheduleModels";
 import { ActionType, DataType } from "../types/scheduleTypes";
+import { toLocaleDate } from "./date";
 import {
   createSchedule,
   fromObjListToClassList,
@@ -16,7 +17,7 @@ export const scheduleReducer = (
       const formData = action.formDataObj;
 
       newPlan.title = formData.title.toString();
-      newPlan.startDate = new Date().toISOString().split("T")[0];
+      newPlan.startDate = toLocaleDate(new Date());
       newPlan.endDate = formData.endDate?.toString();
 
       const start = new Date(newPlan.startDate).getTime();
