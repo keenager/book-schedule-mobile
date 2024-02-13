@@ -1,36 +1,37 @@
-import { Dispatch, FormEvent } from "react";
+import { Dispatch, FormEvent, useState } from "react";
 import { ActionType } from "../../types/scheduleTypes";
+import { Button, Form, Input, Text, YStack } from "tamagui";
 
 export default function TodayDone({
   updateList,
 }: {
   updateList: Dispatch<ActionType>;
 }) {
-  const recalc = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [pageDone, setPageDone] = useState("");
+  console.log("pageDone", pageDone);
+
+  const recalc = () => {
     // page validation
-    //@ts-ignore
-    const pageDone = +e.target!.pageDone.value;
-    if (pageDone < 0) {
+    if (+pageDone < 0) {
       alert("올바른 값을 입력하세요.");
       return;
     }
-    updateList({ type: "update", pageDone });
+    updateList({ type: "update", pageDone: +pageDone });
   };
 
   return (
-    <form onSubmit={recalc} className="flex flex-wrap justify-end items-end">
-      <label>
-        <div className="label">
-          <span className="label-text">오늘</span>
-        </div>
-        <input
-          type="number"
-          name="pageDone"
-          className="input input-bordered input-sm lg:input-md w-full max-w-20"
+    <Form onSubmit={recalc}>
+      <YStack gap="$2">
+        <Text>오늘</Text>
+        <Input
+          keyboardType="number-pad"
+          value={pageDone}
+          onChangeText={(newText) => setPageDone(newText)}
         />
-      </label>
-      <button className="btn btn-sm lg:btn-md btn-primary ml-2">적용</button>
-    </form>
+        <Form.Trigger asChild>
+          <Button>적용</Button>
+        </Form.Trigger>
+      </YStack>
+    </Form>
   );
 }

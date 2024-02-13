@@ -46,7 +46,7 @@ export default function ScheduleForm({
         </RadioGroup>
         <InputGroup plan={plan} updateList={updateList} mode={mode} />
         <Form.Trigger asChild>
-          <Button width="$10" marginLeft="auto" backgroundColor="$background">
+          <Button width="$10" marginLeft="auto">
             만들기
           </Button>
         </Form.Trigger>

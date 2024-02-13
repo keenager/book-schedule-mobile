@@ -5,6 +5,9 @@ import { initialState } from "../../models/scheduleModels";
 import { DataType } from "../../types/scheduleTypes";
 import ScheduleForm from "../../components/form/ScheduleForm";
 import FormInputList from "../../components/form/InputGroup";
+import PlanAndDone from "../../components/plan-done/PlanAndDone";
+import Plan from "../../components/plan-done/Plan";
+import TodayDone from "../../components/plan-done/TodayDone";
 
 export default function CreateScheduleScreen() {
   const [{ bookList, plan, scheduleList }, dispatch] = useReducer(
@@ -13,6 +16,7 @@ export default function CreateScheduleScreen() {
   );
   const { title, totalPage, dailyPage } = plan;
   const isValidPlan = title.length > 0 && totalPage > 0 && dailyPage > 0;
+  console.log("isValidPlan", isValidPlan);
   console.log("plan", plan);
   console.log("scheduleList", scheduleList);
 
@@ -27,7 +31,7 @@ export default function CreateScheduleScreen() {
   // }, []);
 
   return (
-    <View flex={1} alignItems="center">
+    <View alignItems="center">
       <H1 fontSize={20}>스케줄 입력 페이지</H1>
 
       <>
@@ -35,13 +39,13 @@ export default function CreateScheduleScreen() {
           <BookList savedBooks={bookList} updateList={dispatch} />
         )} */}
         <ScheduleForm plan={plan} updateList={dispatch} />
-        {/* {isValidPlan && (
+        {isValidPlan && (
           <>
             <PlanAndDone>
               <Plan totalPage={totalPage} dailyPage={dailyPage} />
               <TodayDone updateList={dispatch} />
             </PlanAndDone>
-            <ScheduleDetail list={scheduleList} />
+            {/* <ScheduleDetail list={scheduleList} />
             <div className="flex justify-end">
               <button
                 className="btn btn-sm lg:btn-md btn-primary"
@@ -49,9 +53,9 @@ export default function CreateScheduleScreen() {
               >
                 저장
               </button>
-            </div>
+            </div> */}
           </>
-        )} */}
+        )}
       </>
     </View>
   );
