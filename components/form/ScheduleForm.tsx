@@ -7,6 +7,7 @@ import { Form, Button, YStack, H4, XStack, RadioGroup } from "tamagui";
 import RadioGroupItem from "./RadioGroupItem";
 import FormInputList from "./InputGroup";
 import InputGroup from "./InputGroup";
+import { Link, Redirect } from "expo-router";
 
 export default function ScheduleForm({
   plan,
@@ -46,9 +47,11 @@ export default function ScheduleForm({
         </RadioGroup>
         <InputGroup plan={plan} updateList={updateList} mode={mode} />
         <Form.Trigger asChild>
-          <Button width="$10" marginLeft="auto">
-            만들기
-          </Button>
+          <Link href="/detail-screen" asChild>
+            <Button width="$10" marginLeft="auto">
+              만들기
+            </Button>
+          </Link>
         </Form.Trigger>
       </YStack>
     </Form>

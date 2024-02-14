@@ -10,10 +10,11 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="book-list-screen"
         options={{
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <Text>Hello!</Text>,
+          title: "책 목록",
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => <Text>책 목록</Text>,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -24,11 +25,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="create-schedule"
+        name="create-screen"
         options={{
+          href: "/create-screen",
           title: "일정 만들기",
           tabBarLabel: "",
           tabBarIcon: ({ color }) => <Text>일정 만들기</Text>,
+        }}
+      />
+      <Tabs.Screen
+        name="detail-screen"
+        options={{
+          title: "세부 일정",
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => <Text>세부 일정</Text>,
         }}
       />
     </Tabs>
