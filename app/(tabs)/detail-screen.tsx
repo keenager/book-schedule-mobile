@@ -13,6 +13,14 @@ export default function DetailScreen() {
     <View>
       <Text>스케줄 디테일</Text>
       <ScheduleDetail list={scheduleList} />
+      {/* <div className="flex justify-end">
+        <button
+          className="btn btn-sm lg:btn-md btn-primary"
+          onClick={dispatch.bind(null, { type: "save", scheduleList })}
+        >
+          저장
+        </button>
+      </div> */}
     </View>
   );
 }

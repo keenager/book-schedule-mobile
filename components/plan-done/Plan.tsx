@@ -10,14 +10,15 @@ import {
   YGroup,
   Group,
 } from "tamagui";
+import {
+  ScheduleContextType,
+  useScheduleContext,
+} from "../context-provider/ScheduleProvider";
 
-export default function Plan({
-  totalPage,
-  dailyPage,
-}: {
-  totalPage: number;
-  dailyPage: number;
-}) {
+export default function Plan() {
+  const {
+    plan: { totalPage, dailyPage },
+  } = useScheduleContext() as ScheduleContextType;
   return (
     <Group
       orientation="horizontal"
@@ -29,7 +30,7 @@ export default function Plan({
       <Group.Item>
         <ListItem
           borderRightWidth={1}
-          bg="$blue2"
+          backgroundColor="$blue2"
           // title="전체"
           // subTitle={`${totalPage} page`}
         >
@@ -41,7 +42,7 @@ export default function Plan({
         </ListItem>
       </Group.Item>
       <Group.Item>
-        <ListItem bg="$blue2">
+        <ListItem backgroundColor="$blue2">
           <YStack width="$6" alignItems="center" gap={0.1}>
             <Text color="gray">하루</Text>
             <Text color="$pink9" fontSize="$9">

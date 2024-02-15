@@ -1,12 +1,12 @@
-import { Dispatch, FormEvent, useState } from "react";
-import { ActionType } from "../../types/scheduleTypes";
+import { useState } from "react";
 import { Button, Form, Input, Text, YStack } from "tamagui";
+import {
+  ScheduleContextType,
+  useScheduleContext,
+} from "../context-provider/ScheduleProvider";
 
-export default function TodayDone({
-  updateList,
-}: {
-  updateList: Dispatch<ActionType>;
-}) {
+export default function TodayDone() {
+  const { dispatch } = useScheduleContext() as ScheduleContextType;
   const [pageDone, setPageDone] = useState("");
   console.log("pageDone", pageDone);
 
@@ -16,7 +16,7 @@ export default function TodayDone({
       alert("올바른 값을 입력하세요.");
       return;
     }
-    updateList({ type: "update", pageDone: +pageDone });
+    dispatch({ type: "update", pageDone: +pageDone });
   };
 
   return (

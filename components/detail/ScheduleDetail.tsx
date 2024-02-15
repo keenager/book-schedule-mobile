@@ -1,40 +1,19 @@
-import {
-  ListItem,
-  ListItemText,
-  Text,
-  XGroup,
-  XStack,
-  YGroup,
-  YStack,
-} from "tamagui";
+import { ListItem, XGroup, YStack } from "tamagui";
 import { Schedule } from "../../models/scheduleModels";
+import PlanAndDone from "../plan-done/PlanAndDone";
+import Plan from "../plan-done/Plan";
+import TodayDone from "../plan-done/TodayDone";
 
 const dateWidth = "$11";
 const numberWidth = "$6";
 
 export default function ScheduleDetail({ list }: { list: Schedule[] }) {
   return (
-    // <section className="schedule-detail my-3">
-    //   <div className="schedule-table my-3 overflow-x-auto">
-    //     <table className="table table-zebra text-center">
-    //       <thead>
-    //         <tr>
-    //           <th></th>
-    //           <th>날짜</th>
-    //           <th>계획</th>
-    //           <th>수정</th>
-    //           <th>실행</th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {list.map((d, i) => (
-    //           <TableRow key={i} data={d} idx={i} />
-    //         ))}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // </section>
     <YStack padding="$3" alignItems="center" borderRadius="$3">
+      <PlanAndDone>
+        <Plan />
+        <TodayDone />
+      </PlanAndDone>
       <XGroup
         size="$3"
         $gtSm={{ size: "$5" }}
@@ -61,18 +40,11 @@ function TableRow({ data, idx }: { data: Schedule; idx: number }) {
   const isBad = pagePlanModified && pageDone && pagePlanModified > pageDone;
   const bgColor = isGood ? "$green5" : isBad ? "$red5" : "";
   return (
-    // <tr className={isToday ? "bg-blue-400" : ""}>
-    //   <th className="rounded-l-lg">{idx + 1}</th>
-    //   <td>{date}</td>
-    //   <td>{pagePlanOrigin}</td>
-    //   <td>{pagePlanModified}</td>
-    //   <td className={`rounded-r-lg ${bgColor}`}>{pageDone}</td>
-    // </tr>
     <XGroup
       size="$3"
       // gap="$3"
       $gtSm={{ size: "$5" }}
-      bg={isToday ? "$blue4" : ""}
+      backgroundColor={isToday ? "$blue4" : ""}
       borderRadius={0}
       // borderTopWidth={1}
       // borderTopColor="$borderColor"
