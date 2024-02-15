@@ -1,10 +1,5 @@
-import { ContextType, useContext, useEffect, useReducer } from "react";
-import { Text, View, Form, H1, Input } from "tamagui";
-import { scheduleReducer } from "../../utils/reducer";
-import { initialState } from "../../models/scheduleModels";
-import { DataType } from "../../types/scheduleTypes";
+import { View, H1 } from "tamagui";
 import ScheduleForm from "../../components/form/ScheduleForm";
-import FormInputList from "../../components/form/InputGroup";
 import PlanAndDone from "../../components/plan-done/PlanAndDone";
 import Plan from "../../components/plan-done/Plan";
 import TodayDone from "../../components/plan-done/TodayDone";
@@ -45,8 +40,8 @@ export default function CreateScheduleScreen() {
         {isValidPlan && (
           <>
             <PlanAndDone>
-              <Plan totalPage={totalPage} dailyPage={dailyPage} />
-              <TodayDone updateList={dispatch} />
+              <Plan />
+              <TodayDone />
             </PlanAndDone>
             {/* <ScheduleDetail list={scheduleList} />
             <div className="flex justify-end">
