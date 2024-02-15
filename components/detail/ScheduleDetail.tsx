@@ -1,19 +1,17 @@
-import { ListItem, XGroup, YStack } from "tamagui";
+import { ListItem, ScrollView, XGroup, YStack } from "tamagui";
 import { Schedule } from "../../models/scheduleModels";
-import PlanAndDone from "../plan-done/PlanAndDone";
-import Plan from "../plan-done/Plan";
-import TodayDone from "../plan-done/TodayDone";
+import {
+  ScheduleContextType,
+  useScheduleContext,
+} from "../context-provider/ScheduleProvider";
 
 const dateWidth = "$11";
 const numberWidth = "$6";
 
-export default function ScheduleDetail({ list }: { list: Schedule[] }) {
+export default function ScheduleDetail() {
+  const { scheduleList } = useScheduleContext() as ScheduleContextType;
   return (
-    <YStack padding="$3" alignItems="center" borderRadius="$3">
-      <PlanAndDone>
-        <Plan />
-        <TodayDone />
-      </PlanAndDone>
+    <YStack>
       <XGroup
         size="$3"
         $gtSm={{ size: "$5" }}
@@ -26,9 +24,11 @@ export default function ScheduleDetail({ list }: { list: Schedule[] }) {
         <TableCell width={numberWidth} content="수정" />
         <TableCell width={numberWidth} content="실행" />
       </XGroup>
-      {list.map((d, i) => (
-        <TableRow key={i} data={d} idx={i} />
-      ))}
+      <ScrollView maxHeight={350}>
+        {scheduleList.map((d, i) => (
+          <TableRow key={i} data={d} idx={i} />
+        ))}
+      </ScrollView>
     </YStack>
   );
 }

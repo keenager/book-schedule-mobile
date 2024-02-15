@@ -1,27 +1,23 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import { KeyboardTypeOptions } from "react-native";
 import { YStack, Text, Input } from "tamagui";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useDatePicker } from "../../hooks/useDatePicker";
-import { ActionType, PlanType } from "../../types/scheduleTypes";
+import {
+  ScheduleContextType,
+  useScheduleContext,
+} from "../context-provider/ScheduleProvider";
 
 type PropsType = {
   label: string;
   type: string;
   name: string;
   value: string | number;
-  plan: PlanType;
-  updateList: Dispatch<ActionType>;
 };
 
-export default function InputItem({
-  label,
-  type,
-  name,
-  value,
-  plan,
-  updateList,
-}: PropsType) {
+export default function InputItem({ label, type, name, value }: PropsType) {
+  const { plan, dispatch } = useScheduleContext() as ScheduleContextType;
+
   const keyboardType: KeyboardTypeOptions =
     type === "number" ? "number-pad" : "default";
 
@@ -31,7 +27,7 @@ export default function InputItem({
     const newPlan = { ...plan, [name]: newValue };
     // 'byPage' 모드일 때는 endDate가 undefined여야 제대로 계산됨(reducer.ts 참조)
     if (name === "dailyPage") newPlan.endDate = undefined;
-    updateList({ type: "updatePlan", plan: newPlan });
+    dispatch({ type: "updatePlan", plan: newPlan });
   };
 
   const { show, setShow, date, onDateChange } = useDatePicker(onChange);

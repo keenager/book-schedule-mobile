@@ -4531,6 +4531,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tamagui/toast@npm:1.89.20":
+  version: 1.89.20
+  resolution: "@tamagui/toast@npm:1.89.20"
+  dependencies:
+    "@tamagui/animate-presence": "npm:1.89.20"
+    "@tamagui/compose-refs": "npm:1.89.20"
+    "@tamagui/constants": "npm:1.89.20"
+    "@tamagui/core": "npm:1.89.20"
+    "@tamagui/create-context": "npm:1.89.20"
+    "@tamagui/dismissable": "npm:1.89.20"
+    "@tamagui/helpers": "npm:1.89.20"
+    "@tamagui/polyfill-dev": "npm:1.89.20"
+    "@tamagui/portal": "npm:1.89.20"
+    "@tamagui/stacks": "npm:1.89.20"
+    "@tamagui/text": "npm:1.89.20"
+    "@tamagui/use-controllable-state": "npm:1.89.20"
+    "@tamagui/visually-hidden": "npm:1.89.20"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 195eb225b28d50d22ad1fcd4a4883cf2a3f93fd605687aebf2e3f3e5c710d08181f4ae2cc6a2f8dc358a93d4fecab4d4f33d73f1448bd51816df738187d27ec3
+  languageName: node
+  linkType: hard
+
 "@tamagui/toggle-group@npm:1.89.20":
   version: 1.89.20
   resolution: "@tamagui/toggle-group@npm:1.89.20"
@@ -6807,6 +6831,7 @@ __metadata:
     "@react-navigation/native": "npm:^6.0.2"
     "@tamagui/config": "npm:^1.89.20"
     "@tamagui/metro-plugin": "npm:^1.89.20"
+    "@tamagui/toast": "npm:1.89.20"
     "@types/react": "npm:~18.2.14"
     babel-preset-expo: "npm:^10.0.1"
     expo: "npm:50.0.2"

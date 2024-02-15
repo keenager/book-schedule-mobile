@@ -1,36 +1,35 @@
-import React, { ChangeEvent, Dispatch, useReducer } from "react";
+import React, { useReducer } from "react";
 import { Dimensions } from "react-native";
-import { ActionType, PlanType } from "../../types/scheduleTypes";
-import FormInput from "./InputItem";
-import RadioButton from "./RadioButton";
-import { Form, Button, YStack, H4, XStack, RadioGroup } from "tamagui";
+import { router } from "expo-router";
+import { Form, Button, YStack, XStack, RadioGroup } from "tamagui";
 import RadioGroupItem from "./RadioGroupItem";
-import FormInputList from "./InputGroup";
 import InputGroup from "./InputGroup";
-import { Link, Redirect } from "expo-router";
+import {
+  ScheduleContextType,
+  useScheduleContext,
+} from "../context-provider/ScheduleProvider";
 
-export default function ScheduleForm({
-  plan,
-  updateList,
-}: {
-  plan: PlanType;
-  updateList: Dispatch<ActionType>;
-}) {
+export default function ScheduleForm() {
+  const { plan, dispatch } = useScheduleContext() as ScheduleContextType;
+
+  //TODO: 토글할 때마다 날짜 또는 페이지 중 나머지 값을 디폴트로 바꾸기(isValidPlan 관련)
   const [mode, toggleMode] = useReducer((prev: string) => {
     return prev === "byDate" ? "byPage" : "byDate";
   }, "byDate");
 
-  // const createHandler = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const myForm = document.getElementById("myForm")! as HTMLFormElement;
-  //   const formData = new FormData(myForm);
-  //   const formDataObj = Object.fromEntries(formData);
-
-  //   updateList({ type: "create", formDataObj });
-  // };
+  const { title, totalPage, dailyPage, endDate } = plan;
+  const isValidPlan =
+    title.length > 0 &&
+    totalPage > 0 &&
+    (/\d{4}-\d{2}-\d{2}/.test(endDate || "") || dailyPage > 0);
 
   const createHandler = () => {
-    updateList({ type: "create", formDataObj: plan });
+    if (isValidPlan) {
+      dispatch({ type: "create", formDataObj: plan });
+      router.push("/detail-screen");
+    } else {
+      alert("유효한 제목, 날짜 또는 페이지를 입력하세요!");
+    }
   };
 
   return (
@@ -45,13 +44,11 @@ export default function ScheduleForm({
             <RadioGroupItem label="페이지 기준" size="$3" value="byPage" />
           </XStack>
         </RadioGroup>
-        <InputGroup plan={plan} updateList={updateList} mode={mode} />
+        <InputGroup mode={mode} />
         <Form.Trigger asChild>
-          <Link href="/detail-screen" asChild>
-            <Button width="$10" marginLeft="auto">
-              만들기
-            </Button>
-          </Link>
+          <Button width="$10" marginLeft="auto">
+            만들기
+          </Button>
         </Form.Trigger>
       </YStack>
     </Form>
