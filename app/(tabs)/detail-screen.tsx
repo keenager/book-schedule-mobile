@@ -1,4 +1,4 @@
-import { Button, YStack } from "tamagui";
+import { Button, XStack, YStack } from "tamagui";
 import ScheduleDetail from "../../components/detail/ScheduleDetail";
 import PlanAndDone from "../../components/plan-done/PlanAndDone";
 import Plan from "../../components/plan-done/Plan";
@@ -9,13 +9,13 @@ import {
 } from "../../components/context-provider/ScheduleProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DataType } from "../../types/scheduleTypes";
+import { blankPlan } from "../../models/scheduleModels";
 
 export default function DetailScreen() {
   const { plan, scheduleList, dispatch } =
     useScheduleContext() as ScheduleContextType;
-  const onSave = async () => {
-    console.log("저장");
 
+  const onSave = async () => {
     const prev = JSON.parse(
       (await AsyncStorage.getItem("bookSchedule")) ?? "{}"
     );
@@ -27,11 +27,15 @@ export default function DetailScreen() {
         scheduleList: scheduleList.map((schedule) => schedule.toObj()),
       },
     };
-    console.log("dataToSave", dataToSave);
     await AsyncStorage.setItem("bookSchedule", JSON.stringify(dataToSave));
 
     dispatch({ type: "updateBookList", bookList: Object.keys(dataToSave) });
   };
+
+  const onReset = () => {
+    dispatch({ type: "updatePlan", plan: blankPlan });
+  };
+
   return (
     <YStack alignSelf="center" gap="$3">
       <PlanAndDone>
@@ -39,9 +43,14 @@ export default function DetailScreen() {
         <TodayDone />
       </PlanAndDone>
       <ScheduleDetail />
-      <Button alignSelf="flex-end" onPress={onSave}>
-        저장
-      </Button>
+      <XStack mt="$2" gap="$3">
+        <Button size="$3" marginLeft="auto" onPress={onReset}>
+          초기화
+        </Button>
+        <Button alignSelf="flex-end" onPress={onSave}>
+          저장
+        </Button>
+      </XStack>
     </YStack>
   );
 }

@@ -1,4 +1,4 @@
-export const toLocaleDate = (prevDate: Date | undefined) => {
+export const toLocaleDate = (prevDate?: Date) => {
   const today = new Date();
   const milliseconds = (prevDate ?? today).getTime();
   // 9시간 27분 정도 차이나는 듯.

@@ -5,7 +5,11 @@ import {
   useScheduleContext,
 } from "../context-provider/ScheduleProvider";
 
-export default function InputGroup({ mode }: { mode: "byDate" | "byPage" }) {
+export default function InputGroup({
+  mode,
+}: {
+  mode: "byDate" | "byPage" | string;
+}) {
   const { plan } = useScheduleContext() as ScheduleContextType;
   return (
     <YStack gap={10}>

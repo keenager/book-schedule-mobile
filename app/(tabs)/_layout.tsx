@@ -1,8 +1,15 @@
 import { Link, Tabs } from "expo-router";
 import { Pressable } from "react-native";
 import { Text } from "tamagui";
+import {
+  ScheduleContextType,
+  useScheduleContext,
+} from "../../components/context-provider/ScheduleProvider";
 
 export default function TabLayout() {
+  const { plan } = useScheduleContext() as ScheduleContextType;
+  const title = plan.title ? `(${plan.title})` : "";
+
   return (
     <Tabs
       screenOptions={{
@@ -36,7 +43,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="detail-screen"
         options={{
-          title: "세부 일정",
+          title: `세부 일정${title}`,
           tabBarLabel: "",
           tabBarIcon: ({ color }) => <Text>세부 일정</Text>,
         }}

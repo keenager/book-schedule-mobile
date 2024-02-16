@@ -17,6 +17,7 @@ export default function TodayDone() {
       return;
     }
     dispatch({ type: "update", pageDone: +pageDone });
+    setPageDone("");
   };
 
   return (

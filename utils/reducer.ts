@@ -1,6 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { blankPlan, initialState } from "../models/scheduleModels";
-import { ActionType, DataType } from "../types/scheduleTypes";
+import { ActionType } from "../types/scheduleTypes";
 import { toLocaleDate } from "./date";
 import {
   createSchedule,
@@ -19,6 +18,7 @@ export const scheduleReducer = (
 
       newPlan.title = formData.title.toString();
       newPlan.startDate = toLocaleDate(new Date());
+      console.log("newPlan.startDate", newPlan.startDate);
       newPlan.endDate = formData.endDate?.toString();
 
       const start = new Date(newPlan.startDate).getTime();
@@ -36,24 +36,6 @@ export const scheduleReducer = (
 
       const newSchedule = createSchedule(newPlan);
       return { ...state, plan: newPlan, scheduleList: newSchedule };
-
-    // case "save":
-    // const prev = JSON.parse(
-    //   (await AsyncStorage.getItem("bookSchedule")) ?? "{}"
-    // );
-    // const dataToSave: DataType = {
-    //   ...prev,
-    //   [state.plan.title]: {
-    //     totalPage: state.plan.totalPage,
-    //     dailyPage: state.plan.dailyPage,
-    //     scheduleList: state.scheduleList.map((schedule) => schedule.toObj()),
-    //   },
-    // };
-    // console.log("dataToSave", dataToSave);
-    // localStorage.setItem("bookSchedule", JSON.stringify(dataToSave));
-    // alert(`${state.plan.title} 스케줄을 저장하였습니다.`);
-
-    // return { ...state, bookList: Object.keys(dataToSave) };
 
     case "updateBookList":
       return { ...state, bookList: action.bookList };
@@ -77,7 +59,7 @@ export const scheduleReducer = (
       return { ...state, plan: action.plan };
 
     case "update":
-      const todayStr = new Date().toISOString().split("T")[0];
+      const todayStr = toLocaleDate();
       const completeDay = state.scheduleList.findLast(
         (schedule) => schedule.pageDone === state.plan.totalPage
       )?.date;

@@ -8,13 +8,20 @@ import {
   ScheduleContextType,
   useScheduleContext,
 } from "../context-provider/ScheduleProvider";
+import { blankPlan } from "../../models/scheduleModels";
 
 export default function ScheduleForm() {
   const { plan, dispatch } = useScheduleContext() as ScheduleContextType;
-  console.log("plan in form", plan);
-  //TODO: 토글할 때마다 날짜 또는 페이지 중 나머지 값을 디폴트로 바꾸기(isValidPlan 관련)
+
+  // 토글할 때마다 날짜 또는 페이지 중 나머지 값을 디폴트로 바꾸기(isValidPlan 관련)
   const [mode, toggleMode] = useReducer((prev: string) => {
-    return prev === "byDate" ? "byPage" : "byDate";
+    if (prev === "byDate") {
+      dispatch({ type: "updatePlan", plan: { ...plan, endDate: undefined } });
+      return "byPage";
+    } else {
+      dispatch({ type: "updatePlan", plan: { ...plan, dailyPage: 0 } });
+      return "byDate";
+    }
   }, "byDate");
 
   const { title, totalPage, dailyPage, endDate } = plan;
@@ -32,6 +39,10 @@ export default function ScheduleForm() {
     }
   };
 
+  const onReset = () => {
+    dispatch({ type: "updatePlan", plan: blankPlan });
+  };
+
   return (
     <Form onSubmit={createHandler} width={Dimensions.get("window").width * 0.8}>
       <YStack gap="$3">
@@ -45,11 +56,14 @@ export default function ScheduleForm() {
           </XStack>
         </RadioGroup>
         <InputGroup mode={mode} />
-        <Form.Trigger asChild>
-          <Button width="$10" marginLeft="auto">
-            만들기
+        <XStack mt="$2" gap="$3">
+          <Button size="$3" marginLeft="auto" onPress={onReset}>
+            초기화
           </Button>
-        </Form.Trigger>
+          <Form.Trigger asChild>
+            <Button size="$3">만들기</Button>
+          </Form.Trigger>
+        </XStack>
       </YStack>
     </Form>
   );

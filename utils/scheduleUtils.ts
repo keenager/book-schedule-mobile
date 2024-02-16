@@ -1,16 +1,19 @@
 import { Schedule } from "../models/scheduleModels";
 import { PlanType, ScheduleObjType } from "../types/scheduleTypes";
+import { toLocaleDate } from "./date";
 
-export const createSchedule = ({ totalPage, dailyPage }: PlanType) => {
+export const createSchedule = ({
+  totalPage,
+  dailyPage,
+  startDate,
+}: PlanType) => {
   let result: Schedule[] = [];
-  const date = new Date();
+  const date = new Date(startDate);
   let page = dailyPage;
 
   while (page < totalPage + dailyPage) {
     if (page > totalPage) page = totalPage;
-    result.push(
-      new Schedule(date.toISOString().split("T")[0], page, page, undefined)
-    );
+    result.push(new Schedule(toLocaleDate(date), page, page, undefined));
     date.setDate(date.getDate() + 1);
     page += dailyPage;
   }
