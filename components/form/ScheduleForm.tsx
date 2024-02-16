@@ -11,7 +11,7 @@ import {
 
 export default function ScheduleForm() {
   const { plan, dispatch } = useScheduleContext() as ScheduleContextType;
-
+  console.log("plan in form", plan);
   //TODO: 토글할 때마다 날짜 또는 페이지 중 나머지 값을 디폴트로 바꾸기(isValidPlan 관련)
   const [mode, toggleMode] = useReducer((prev: string) => {
     return prev === "byDate" ? "byPage" : "byDate";

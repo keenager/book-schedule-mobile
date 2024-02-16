@@ -36,12 +36,17 @@ export type ActionType =
       scheduleList: Schedule[];
     }
   | {
+      type: "updateBookList";
+      bookList: string[];
+    }
+  | {
       type: "loadBookList";
       bookList: string[];
     }
   | {
       type: "loadScheduleList";
       title: string;
+      data: DataType[string];
     }
   | {
       type: "updatePlan";
@@ -53,5 +58,5 @@ export type ActionType =
     }
   | {
       type: "delete";
-      title: string;
+      bookList: string[];
     };

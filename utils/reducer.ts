@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { blankPlan, initialState } from "../models/scheduleModels";
 import { ActionType, DataType } from "../types/scheduleTypes";
 import { toLocaleDate } from "./date";
@@ -36,31 +37,34 @@ export const scheduleReducer = (
       const newSchedule = createSchedule(newPlan);
       return { ...state, plan: newPlan, scheduleList: newSchedule };
 
-    case "save":
-      const prev = JSON.parse(localStorage.getItem("bookSchedule") ?? "{}");
-      const dataToSave: DataType = {
-        ...prev,
-        [state.plan.title]: {
-          totalPage: state.plan.totalPage,
-          dailyPage: state.plan.dailyPage,
-          scheduleList: state.scheduleList.map((schedule) => schedule.toObj()),
-        },
-      };
+    // case "save":
+    // const prev = JSON.parse(
+    //   (await AsyncStorage.getItem("bookSchedule")) ?? "{}"
+    // );
+    // const dataToSave: DataType = {
+    //   ...prev,
+    //   [state.plan.title]: {
+    //     totalPage: state.plan.totalPage,
+    //     dailyPage: state.plan.dailyPage,
+    //     scheduleList: state.scheduleList.map((schedule) => schedule.toObj()),
+    //   },
+    // };
+    // console.log("dataToSave", dataToSave);
+    // localStorage.setItem("bookSchedule", JSON.stringify(dataToSave));
+    // alert(`${state.plan.title} 스케줄을 저장하였습니다.`);
 
-      localStorage.setItem("bookSchedule", JSON.stringify(dataToSave));
-      alert(`${state.plan.title} 스케줄을 저장하였습니다.`);
+    // return { ...state, bookList: Object.keys(dataToSave) };
 
-      return { ...state, bookList: Object.keys(dataToSave) };
+    case "updateBookList":
+      return { ...state, bookList: action.bookList };
 
     case "loadBookList":
       return { ...state, bookList: action.bookList };
 
     case "loadScheduleList":
-      const title = action.title;
-      const savedData = JSON.parse(localStorage.getItem("bookSchedule")!);
-      const { totalPage, dailyPage, scheduleList } = savedData[title];
+      const { totalPage, dailyPage, scheduleList } = action.data;
       const loadedPlan = {
-        title,
+        title: action.title,
         totalPage: +totalPage,
         dailyPage: +dailyPage,
         startDate: scheduleList[0].date,
@@ -106,13 +110,8 @@ export const scheduleReducer = (
       return { ...state, scheduleList: updatedSchedule };
 
     case "delete":
-      const prevData: DataType = JSON.parse(
-        localStorage.getItem("bookSchedule") ?? "{}"
-      );
-      const { [action.title!]: target, ...newData } = prevData;
-      localStorage.setItem("bookSchedule", JSON.stringify(newData));
       return {
-        bookList: Object.keys(newData),
+        bookList: action.bookList,
         plan: { ...blankPlan },
         scheduleList: [],
       };

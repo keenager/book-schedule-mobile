@@ -27,6 +27,8 @@ export default function InputItem({ label, type, name, value }: PropsType) {
     const newPlan = { ...plan, [name]: newValue };
     // 'byPage' 모드일 때는 endDate가 undefined여야 제대로 계산됨(reducer.ts 참조)
     if (name === "dailyPage") newPlan.endDate = undefined;
+    console.log("plan in input", plan);
+    console.log("newPlan", newPlan);
     dispatch({ type: "updatePlan", plan: newPlan });
   };
 
