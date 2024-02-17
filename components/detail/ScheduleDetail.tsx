@@ -5,6 +5,7 @@ import {
   useScheduleContext,
 } from "../context-provider/ScheduleProvider";
 import { toLocaleDate } from "../../utils/date";
+import Size from "../../constants/Size";
 
 const dateWidth = "$11";
 const numberWidth = "$6";
@@ -14,7 +15,7 @@ export default function ScheduleDetail() {
   return (
     <YStack>
       <XGroup
-        size="$3"
+        size={Size.button}
         $gtSm={{ size: "$5" }}
         borderRadius={0}
         borderBottomWidth={1}
@@ -62,7 +63,12 @@ function TableRow({ data, idx }: { data: Schedule; idx: number }) {
         content={pagePlanModified}
         isToday={isToday}
       />
-      <TableCell width={numberWidth} content={pageDone} isToday={isToday} />
+      <TableCell
+        width={numberWidth}
+        content={pageDone}
+        isToday={isToday}
+        bg={bgColor}
+      />
     </XGroup>
   );
 }
@@ -71,14 +77,20 @@ function TableCell({
   width,
   content,
   isToday,
+  bg,
 }: {
   width: string;
   content: string | number | undefined;
   isToday?: boolean;
+  bg?: string;
 }) {
   return (
     <XGroup.Item>
-      <ListItem width={width} textAlign="center" bg={isToday ? "$blue4" : ""}>
+      <ListItem
+        width={width}
+        textAlign="center"
+        bg={bg ? bg : isToday ? "$blue4" : ""}
+      >
         {content?.toString()}
       </ListItem>
     </XGroup.Item>

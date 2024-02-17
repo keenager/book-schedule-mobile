@@ -1,4 +1,5 @@
 import { AlertDialog, Button, XStack, YStack } from "tamagui";
+import Size from "../../constants/Size";
 
 export function ConfirmDialog({
   title,
@@ -40,10 +41,10 @@ export function ConfirmDialog({
 
             <XStack gap="$3" justifyContent="flex-end">
               <AlertDialog.Cancel asChild>
-                <Button>Cancel</Button>
+                <Button size={Size.button}>Cancel</Button>
               </AlertDialog.Cancel>
               <AlertDialog.Action asChild>
-                <Button theme="active" onPress={func}>
+                <Button size={Size.button} theme="red" onPress={func}>
                   OK
                 </Button>
               </AlertDialog.Action>

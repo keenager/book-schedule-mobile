@@ -1,33 +1,24 @@
-import { Link, Tabs } from "expo-router";
-import { Pressable } from "react-native";
-import { Text } from "tamagui";
+import { Tabs } from "expo-router";
+import { Book, Calendar, List } from "@tamagui/lucide-icons";
 import {
   ScheduleContextType,
   useScheduleContext,
 } from "../../components/context-provider/ScheduleProvider";
+import { View } from "tamagui";
 
 export default function TabLayout() {
   const { plan } = useScheduleContext() as ScheduleContextType;
   const title = plan.title ? `(${plan.title})` : "";
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: "red",
-      }}
-    >
+    <Tabs screenOptions={{ tabBarShowLabel: false }}>
       <Tabs.Screen
         name="book-list-screen"
         options={{
-          title: "책 목록",
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => <Text>책 목록</Text>,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                <Text>Hello!</Text>
-              </Pressable>
-            </Link>
+          headerTitle: "책 목록",
+          headerTitleAlign: "center",
+          tabBarIcon: ({ focused }) => (
+            <List color={focused ? "$blue10Light" : "$gray10Light"} />
           ),
         }}
       />
@@ -35,17 +26,21 @@ export default function TabLayout() {
         name="create-screen"
         options={{
           href: "/create-screen",
-          title: "일정 만들기",
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => <Text>일정 만들기</Text>,
+          headerTitle: "일정 만들기",
+          headerTitleAlign: "center",
+          tabBarIcon: ({ focused }) => (
+            <Book color={focused ? "$blue10Light" : "$gray10Light"} />
+          ),
         }}
       />
       <Tabs.Screen
         name="detail-screen"
         options={{
-          title: `세부 일정${title}`,
-          tabBarLabel: "",
-          tabBarIcon: ({ color }) => <Text>세부 일정</Text>,
+          headerTitle: `세부 일정${title}`,
+          headerTitleAlign: "center",
+          tabBarIcon: ({ focused }) => (
+            <Calendar color={focused ? "$blue10Light" : "$gray10Light"} />
+          ),
         }}
       />
     </Tabs>

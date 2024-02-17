@@ -13,7 +13,7 @@ import {
 import {
   ScheduleContextType,
   useScheduleContext,
-} from "../context-provider/ScheduleProvider";
+} from "../../context-provider/ScheduleProvider";
 
 export default function Plan() {
   const {

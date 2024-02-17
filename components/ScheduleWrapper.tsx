@@ -5,10 +5,10 @@ import { initialState } from "../models/scheduleModels";
 import { scheduleReducer } from "../utils/reducer";
 import BookList from "./book-list/BookList";
 import ScheduleForm from "./form/ScheduleForm";
-import Plan from "./plan-done/Plan";
-import TodayDone from "./plan-done/TodayDone";
+import Plan from "./detail/plan-done/Plan";
+import TodayDone from "./detail/plan-done/TodayDone";
 import ScheduleDetail from "./detail/ScheduleDetail";
-import PlanAndDone from "./plan-done/PlanAndDone";
+import PlanAndDone from "./detail/plan-done/PlanAndDone";
 
 export default function ScheduleWrapper() {
   const [{ bookList, plan, scheduleList }, dispatch] = useReducer(
