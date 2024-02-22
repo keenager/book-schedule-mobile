@@ -1,10 +1,9 @@
 import { Button, XStack } from "tamagui";
-import useResetSave from "../../hooks/useEventHandler";
+import useEventHandler from "../../hooks/useEventHandler";
 import Size from "../../constants/Size";
 
 export default function Buttons() {
-  const [onReset, onSave] = useResetSave();
-
+  const { onReset, onSave } = useEventHandler();
   return (
     <XStack mt="$2" gap="$3">
       <Button size={Size.button} marginLeft="auto" onPress={onReset}>

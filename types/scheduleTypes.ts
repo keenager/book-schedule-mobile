@@ -57,6 +57,9 @@ export type ActionType =
       pageDone: number;
     }
   | {
+      type: "reset";
+    }
+  | {
       type: "delete";
       bookList: string[];
     };

@@ -7,12 +7,16 @@ import {
 import Size from "../../../constants/Size";
 
 export default function TodayDone() {
-  const { dispatch } = useScheduleContext() as ScheduleContextType;
+  const { scheduleList, dispatch } =
+    useScheduleContext() as ScheduleContextType;
   const [pageDone, setPageDone] = useState("");
 
   const recalc = () => {
+    if (scheduleList.length === 0) {
+      return;
+    }
     // page validation
-    if (+pageDone < 0) {
+    if (+pageDone < 0 || isNaN(+pageDone)) {
       alert("올바른 값을 입력하세요.");
       return;
     }
@@ -30,7 +34,9 @@ export default function TodayDone() {
           onChangeText={(newText) => setPageDone(newText)}
         />
         <Form.Trigger asChild>
-          <Button size={Size.button}>적용</Button>
+          <Button size={Size.button} theme="active">
+            적용
+          </Button>
         </Form.Trigger>
       </YStack>
     </Form>

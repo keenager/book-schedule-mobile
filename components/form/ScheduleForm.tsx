@@ -8,7 +8,7 @@ import useMode from "../../hooks/useMode";
 import Size from "../../constants/Size";
 
 export default function ScheduleForm() {
-  const [onCreate, onReset] = useEventHandler();
+  const { onCreate, onReset } = useEventHandler();
   const [mode, setMode] = useMode();
 
   return (

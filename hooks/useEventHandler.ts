@@ -6,6 +6,7 @@ import {
 import { DataType } from "../types/scheduleTypes";
 import { blankPlan } from "../models/scheduleModels";
 import { router } from "expo-router";
+import { getErrorMessage } from "../utils/error";
 
 export default function useEventHandler() {
   const { plan, scheduleList, dispatch } =
@@ -27,25 +28,33 @@ export default function useEventHandler() {
   };
 
   const onSave = async () => {
-    const prev = JSON.parse(
-      (await AsyncStorage.getItem("bookSchedule")) ?? "{}"
-    );
-    const dataToSave: DataType = {
-      ...prev,
-      [plan.title]: {
-        totalPage: plan.totalPage,
-        dailyPage: plan.dailyPage,
-        scheduleList: scheduleList.map((schedule) => schedule.toObj()),
-      },
-    };
-    await AsyncStorage.setItem("bookSchedule", JSON.stringify(dataToSave));
+    if (scheduleList.length === 0) return;
 
-    dispatch({ type: "updateBookList", bookList: Object.keys(dataToSave) });
+    try {
+      const prev = JSON.parse(
+        (await AsyncStorage.getItem("bookSchedule")) ?? "{}"
+      );
+      const dataToSave: DataType = {
+        ...prev,
+        [plan.title]: {
+          totalPage: plan.totalPage,
+          dailyPage: plan.dailyPage,
+          scheduleList: scheduleList.map((schedule) => schedule.toObj()),
+        },
+      };
+      await AsyncStorage.setItem("bookSchedule", JSON.stringify(dataToSave));
+
+      dispatch({ type: "updateBookList", bookList: Object.keys(dataToSave) });
+
+      alert("저장되었습니다!");
+    } catch (e) {
+      alert(getErrorMessage(e));
+    }
   };
 
   const onReset = () => {
-    dispatch({ type: "updatePlan", plan: blankPlan });
+    dispatch({ type: "reset" });
   };
 
-  return [onCreate, onSave, onReset];
+  return { onCreate, onSave, onReset };
 }

@@ -91,6 +91,9 @@ export const scheduleReducer = (
 
       return { ...state, scheduleList: updatedSchedule };
 
+    case "reset":
+      return { ...state, plan: blankPlan, scheduleList: [] };
+
     case "delete":
       return {
         bookList: action.bookList,

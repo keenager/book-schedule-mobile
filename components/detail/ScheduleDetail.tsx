@@ -35,20 +35,21 @@ export default function ScheduleDetail() {
   );
 }
 
-//TODO: 달성 여부에 따라 색깔 부여.
 function TableRow({ data, idx }: { data: Schedule; idx: number }) {
   const { date, pagePlanOrigin, pagePlanModified, pageDone } = data;
   const isToday = date === toLocaleDate();
+  // 달성 여부에 따라 색깔 부여.
   const isGood = pagePlanModified && pageDone && pagePlanModified <= pageDone;
   const isBad = pagePlanModified && pageDone && pagePlanModified > pageDone;
-  const bgColor = isGood ? "$green5" : isBad ? "$red5" : "";
+  const bgColor = isGood ? "$green7" : isBad ? "$red7" : "";
   return (
     <XGroup
       size="$3"
       // gap="$3"
       $gtSm={{ size: "$5" }}
-      backgroundColor={isToday ? "$blue4" : ""}
-      borderRadius={0}
+      backgroundColor={isToday ? "$blue6" : ""}
+      // borderRadius={5}
+      // borderTopLeftRadius={5}
       // borderTopWidth={1}
       // borderTopColor="$borderColor"
     >
@@ -89,7 +90,7 @@ function TableCell({
       <ListItem
         width={width}
         textAlign="center"
-        bg={bg ? bg : isToday ? "$blue4" : ""}
+        bg={bg ? bg : isToday ? "$blue6" : ""}
       >
         {content?.toString()}
       </ListItem>
