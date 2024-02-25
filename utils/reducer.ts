@@ -18,7 +18,6 @@ export const scheduleReducer = (
 
       newPlan.title = formData.title.toString();
       newPlan.startDate = toLocaleDate(new Date());
-      console.log("newPlan.startDate", newPlan.startDate);
       newPlan.endDate = formData.endDate?.toString();
 
       const start = new Date(newPlan.startDate).getTime();
