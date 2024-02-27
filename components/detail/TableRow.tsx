@@ -16,7 +16,7 @@ export default function TableRow({
   // 달성 여부에 따라 색깔 부여.
   const isGood = pagePlanModified && pageDone && pagePlanModified <= pageDone;
   const isBad = pagePlanModified && pageDone && pagePlanModified > pageDone;
-  const bgColor = isGood ? "$green7" : isBad ? "$red7" : "";
+  const bgColor = isGood ? "$green9" : isBad ? "$red9" : "";
   return (
     <XGroup
       size="$3"
