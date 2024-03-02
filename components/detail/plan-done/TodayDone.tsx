@@ -5,22 +5,24 @@ import {
   useScheduleContext,
 } from "../../context-provider/ScheduleProvider";
 import Size from "../../../constants/Size";
+import { useToast } from "react-native-toast-notifications";
 
 export default function TodayDone() {
   const { scheduleList, dispatch } =
     useScheduleContext() as ScheduleContextType;
   const [pageDone, setPageDone] = useState("");
+  const toast = useToast();
 
   const recalc = () => {
     if (scheduleList.length === 0) {
       return;
     }
     // page validation
-    if (+pageDone < 0 || isNaN(+pageDone)) {
-      alert("올바른 값을 입력하세요.");
+    if (pageDone === "" || +pageDone < 0 || isNaN(+pageDone)) {
+      toast.show("올바른 값을 입력하세요.", { type: "warning" });
       return;
     }
-    dispatch({ type: "update", pageDone: +pageDone });
+    dispatch({ type: "updateSchedule", pageDone: +pageDone });
     setPageDone("");
   };
 

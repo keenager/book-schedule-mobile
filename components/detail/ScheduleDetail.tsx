@@ -8,7 +8,7 @@ import TableRow from "./TableRow";
 import Size from "../../constants/Size";
 
 export default function ScheduleDetail() {
-  const { scheduleList } = useScheduleContext() as ScheduleContextType;
+  const { plan, scheduleList } = useScheduleContext() as ScheduleContextType;
   return (
     <YStack>
       {/* 제목 행 */}
@@ -27,7 +27,7 @@ export default function ScheduleDetail() {
       {/* 실제 데이터 행 */}
       <ScrollView maxHeight={350}>
         {scheduleList.map((d, i) => (
-          <TableRow key={i} data={d} idx={i} />
+          <TableRow key={plan.title + scheduleList[i].date} data={d} idx={i} />
         ))}
       </ScrollView>
     </YStack>

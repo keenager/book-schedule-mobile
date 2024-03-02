@@ -3,6 +3,7 @@ import { toLocaleDate } from "../../utils/date";
 import { Schedule } from "../../models/scheduleModels";
 import TableCell from "./TableCell";
 import Size from "../../constants/Size";
+import Colors from "../../constants/Colors";
 
 export default function TableRow({
   data,
@@ -16,7 +17,7 @@ export default function TableRow({
   // 달성 여부에 따라 색깔 부여.
   const isGood = pagePlanModified && pageDone && pagePlanModified <= pageDone;
   const isBad = pagePlanModified && pageDone && pagePlanModified > pageDone;
-  const bgColor = isGood ? "$green9" : isBad ? "$red9" : "";
+  const bgColor = isGood ? Colors.success : isBad ? Colors.error : "";
   return (
     <XGroup
       size="$3"

@@ -53,7 +53,7 @@ export type ActionType =
       plan: PlanType;
     }
   | {
-      type: "update";
+      type: "updateSchedule";
       pageDone: number;
     }
   | {

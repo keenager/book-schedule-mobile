@@ -1,3 +1,4 @@
+import { useToast } from "react-native-toast-notifications";
 import { blankPlan, initialState } from "../models/scheduleModels";
 import { ActionType } from "../types/scheduleTypes";
 import { toLocaleDate } from "./date";
@@ -6,11 +7,13 @@ import {
   fromObjListToClassList,
   updateSchedule,
 } from "./scheduleUtils";
+import Colors from "../constants/Colors";
 
 export const scheduleReducer = (
   state: typeof initialState,
   action: ActionType
 ) => {
+  const toast = useToast();
   switch (action.type) {
     case "create":
       const newPlan = { ...state.plan };
@@ -57,13 +60,22 @@ export const scheduleReducer = (
     case "updatePlan":
       return { ...state, plan: action.plan };
 
-    case "update":
+    case "updateSchedule":
       const todayStr = toLocaleDate();
-      const completeDay = state.scheduleList.findLast(
+
+      const lastDate = state.scheduleList[state.scheduleList.length - 1].date;
+      if (new Date(todayStr) > new Date(lastDate)) {
+        toast.show("이미 끝난 스케줄입니다.", { type: "warning" });
+        return state;
+      }
+      const completeDate = state.scheduleList.findLast(
         (schedule) => schedule.pageDone === state.plan.totalPage
       )?.date;
-      if (completeDay && new Date(todayStr) > new Date(completeDay)) {
-        alert("이미 완료한 스케줄입니다.");
+      if (completeDate && new Date(todayStr) > new Date(completeDate)) {
+        toast.show("이미 완료한 스케줄입니다.", {
+          normalColor: Colors.info,
+          textStyle: { color: "white" },
+        });
         return state;
       }
 
@@ -76,7 +88,9 @@ export const scheduleReducer = (
       );
       const before = state.scheduleList[idx - 1];
       if (before && pageDone < before.pageDone!) {
-        alert("전날보다 더 앞 페이지를 입력할 수 없습니다.");
+        toast.show("전날보다 더 앞 페이지를 입력할 수 없습니다.", {
+          type: "warning",
+        });
         return state;
       }
 
