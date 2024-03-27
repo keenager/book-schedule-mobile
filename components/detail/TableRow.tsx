@@ -21,13 +21,8 @@ export default function TableRow({
   return (
     <XGroup
       size="$3"
-      // gap="$3"
-      $gtSm={{ size: "$5" }}
+      // $gtSm={{ size: "$5" }}
       backgroundColor={isToday ? "$blue6" : ""}
-      // borderRadius={5}
-      // borderTopLeftRadius={5}
-      // borderTopWidth={1}
-      // borderTopColor="$borderColor"
     >
       <TableCell width={Size.width.date} content={date} isToday={isToday} />
       <TableCell

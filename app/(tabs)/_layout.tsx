@@ -13,6 +13,14 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{ tabBarShowLabel: false }}>
       <Tabs.Screen
+        name="index"
+        options={{
+          href: null,
+          headerTitle: "독서 계획",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Tabs.Screen
         name="book-list-screen"
         options={{
           headerTitle: "책 목록",
@@ -25,7 +33,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="create-screen"
         options={{
-          href: "/create-screen",
+          // href: "/create-screen",
           headerTitle: "일정 만들기",
           headerTitleAlign: "center",
           tabBarIcon: ({ focused }) => (
