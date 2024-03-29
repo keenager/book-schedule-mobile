@@ -1,15 +1,4 @@
-import { Dimensions } from "react-native";
-import {
-  ListItem,
-  Separator,
-  Text,
-  View,
-  XStack,
-  YStack,
-  XGroup,
-  YGroup,
-  Group,
-} from "tamagui";
+import { ListItem, Text, YStack, Group } from "tamagui";
 import {
   ScheduleContextType,
   useScheduleContext,
@@ -22,36 +11,35 @@ export default function Plan() {
   return (
     <Group
       orientation="horizontal"
-      width={100}
+      width="$10"
       // marginVertical="$5"
       // marginLeft={(Dimensions.get("window").width - 100) / 3}
       // marginRight="auto"
     >
-      <Group.Item>
-        <ListItem
-          borderRightWidth={1}
-          backgroundColor="$blue2"
-          // title="전체"
-          // subTitle={`${totalPage} page`}
-        >
-          <YStack width="$6" alignItems="center" gap={0.1}>
-            <Text color="gray">전체</Text>
-            <Text fontSize="$9">{totalPage}</Text>
-            <Text color="gray">page</Text>
-          </YStack>
-        </ListItem>
-      </Group.Item>
-      <Group.Item>
-        <ListItem backgroundColor="$blue2">
-          <YStack width="$6" alignItems="center" gap={0.1}>
-            <Text color="gray">하루</Text>
-            <Text color="$pink9" fontSize="$9">
-              {dailyPage}
-            </Text>
-            <Text color="gray">page</Text>
-          </YStack>
-        </ListItem>
-      </Group.Item>
+      <PlanPanel title="전체" page={totalPage} />
+      <PlanPanel title="하루" page={dailyPage} />
     </Group>
+  );
+}
+
+function PlanPanel({ title, page }: { title: string; page: number }) {
+  const fontColor = title === "하루" ? "$pink9" : undefined;
+  const width = page < 1000 ? "$6" : "$7";
+  return (
+    <Group.Item>
+      <ListItem
+        borderRightWidth={1}
+        backgroundColor="$blue2"
+        justifyContent="center"
+      >
+        <YStack width={width} alignItems="center" gap={0.1}>
+          <Text color="gray">{title}</Text>
+          <Text color={fontColor} fontSize="$9">
+            {page}
+          </Text>
+          <Text color="gray">page</Text>
+        </YStack>
+      </ListItem>
+    </Group.Item>
   );
 }

@@ -34,6 +34,7 @@ export default function TodayDone() {
           keyboardType="number-pad"
           value={pageDone}
           onChangeText={(newText) => setPageDone(newText)}
+          onSubmitEditing={recalc}
         />
         <Form.Trigger asChild>
           <Button size={Size.button} theme="active">

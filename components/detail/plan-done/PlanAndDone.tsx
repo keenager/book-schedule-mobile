@@ -9,7 +9,7 @@ export default function PlanAndDone({
   const childrenArray = React.Children.toArray(children);
 
   return (
-    <XStack marginVertical="$3" gap="$15">
+    <XStack marginVertical="$3" gap="$15" justifyContent="center">
       {childrenArray}
     </XStack>
   );
